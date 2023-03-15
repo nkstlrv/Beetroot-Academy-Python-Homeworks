@@ -1,3 +1,4 @@
+
 CREATE TABLE table_1 (
 
     name text,
