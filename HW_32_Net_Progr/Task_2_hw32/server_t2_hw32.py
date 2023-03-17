@@ -3,7 +3,7 @@ import socket
 IP = '127.0.0.1'
 PORT = 12345
 
-server_tcp = socket.socket()
+server_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print('TCP Socket configured')
 
 server_tcp.bind((IP, PORT))
