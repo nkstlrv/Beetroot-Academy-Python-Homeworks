@@ -1,7 +1,7 @@
 import requests
 import time
 import datetime
-API_KEY = "20fca90e9840c31f863055091efb8b32"
+API_KEY = "Your very secret API key"
 
 
 # Function to convert time in Unix timestamp format into human-readable format
