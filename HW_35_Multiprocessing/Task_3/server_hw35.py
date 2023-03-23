@@ -16,8 +16,6 @@ def client_handler(connection):
         connection.sendall(data.upper())
 
         if data.decode() == 'stop':
-            global run_server
-            run_server = False
             print("Stopping server...")
             break
     connection.close()
