@@ -21,5 +21,6 @@ def client_main():
                 print('Client stopped')
                 break
 
+
 if __name__ == "__main__":
     client_main()

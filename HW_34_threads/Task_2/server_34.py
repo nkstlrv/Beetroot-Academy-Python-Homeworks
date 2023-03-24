@@ -4,18 +4,18 @@ import threading
 HOST = 'localhost'
 PORT = 8000
 
-data = True
+run_server = True
 
 
 def data_receiver(client_socket):
     while True:
-        global data
         data = client_socket.recv(1024)
         print(f"Data received [{data.decode()}]\n")
         client_socket.sendall(data.upper())
 
-        if not data:
-            print("No receiving data")
+        if data.decode() == 'stop':
+            global run_server
+            run_server = False
             print("Stopping server...")
             break
 
@@ -28,7 +28,7 @@ def server_main():
         server.listen()
         print('[LISTENING]')
 
-        while data:
+        while run_server is True:
             client_socket, address = server.accept()
             print(f"Accepted {address}")
 
