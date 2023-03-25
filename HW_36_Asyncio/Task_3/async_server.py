@@ -34,7 +34,7 @@ async def server_func():
 
         if run_server is not True:
             asyncio.get_event_loop().stop()
-            print('[STOPPED]')
+            print('[CLIENT STOPPED]')
 
 
 if __name__ == "__main__":

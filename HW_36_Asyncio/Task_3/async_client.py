@@ -23,7 +23,7 @@ async def client_func():
 
     writer.close()
     await writer.wait_closed()
-    print('[CLOSED]')
+    print('[SERVER CLOSED]')
 
 
 if __name__ == "__main__":
