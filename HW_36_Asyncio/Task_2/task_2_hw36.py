@@ -24,7 +24,7 @@ async def get_comments(topic):
         reddit_resp = await session.get(url, ssl=False)
         data = await reddit_resp.json()
 
-        for num in range(5):
+        for num in range(10):
             topic_dict[data['data'][num]['author']] = {
                 'comment': data['data'][num]['body'],
                 'time': data['data'][num]['utc_datetime_str']}
