@@ -24,7 +24,7 @@ async def get_comments(topic):
         reddit_resp = await session.get(url, ssl=False)
         data = await reddit_resp.json()
 
-        for num in range(10):
+        for num in range(5):
             topic_dict[data['data'][num]['author']] = {
                 'comment': data['data'][num]['body'],
                 'time': data['data'][num]['utc_datetime_str']}
@@ -35,9 +35,13 @@ async def get_comments(topic):
 async def main():
     start = time.time()
 
+    tasks = []
+
     for t in topics:
         task = asyncio.create_task(get_comments(t))
-        await task
+        tasks.append(task)
+
+    await asyncio.gather(*tasks)
 
     end = time.time()
 
