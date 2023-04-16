@@ -1,0 +1,14 @@
+{% extends "notes/base.html" %}
+{% block title %}Registration{% endblock title %}
+{% block content %}
+
+    <div class="form-group" style="margin-left: 20px; margin-top: 10px">
+    <h2> Register</h2>
+        <br>
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success rounded-pill px-3" type="submit">Register</button>
+        </form>
+    </div>
+
+{% endblock content %}

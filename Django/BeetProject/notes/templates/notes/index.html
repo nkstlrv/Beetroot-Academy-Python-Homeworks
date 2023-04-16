@@ -1,33 +1,46 @@
 {% extends "notes/base.html" %}
+{% load static %}
 {% block title %}Home{% endblock title %}
+
 {% block content %}
 
-
-<div style="display: flex; flex-direction: row; flex-wrap: wrap">
-
-  {% for n in note_list %}
-  {#  Single Card Template:#}
-  <div class="card" style="width: 18rem; margin: 20px; background-color: lightyellow">
-    <div class="card-body">
-
-        <h5 class="card-title">{{ n.title }}</h5>
-        <h6 style="font-size: small" class="card-subtitle mb-2 text-body-secondary">{{ n.created }} UTC</h6>
-
-        {% if  n.body|length  < 100 %}
-            <p class="card-text">{{ n.body}}</p>
-        {% else %}
-            <p class="card-text">{{ n.body | slice:":100"}}...</p>
-        {% endif %}
+    {% if user.is_authenticated %}
 
 
-    </div>
-  <div style="margin: 10px; position: relative; text-align: right;">
-  <a style="color: gray; text-decoration: none" href="#" class="card-link">Edit</a>
-  </div>
-  </div>
-  {% endfor %}
+        <div style="align-self: center; text-align: center; padding-top: 5px"><strong>Hello there, {{ user.username }}
+            👋</strong></div>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap">
 
-</div>
+            {% for n in note_list %}
+                {% if user.id == n.author.id %}
+                {#  Single Card Template:#}
+                <div class="card" style="width: 18rem; margin: 20px; background-color: lightyellow">
+                    <div class="card-body">
+
+                        <h5 class="card-title">{{ n.title }}</h5>
+                        <h6 style="font-size: small" class="card-subtitle mb-2 text-body-secondary">{{ n.created }}
+                            UTC</h6>
+
+                        {% if  n.body|length  < 100 %}
+                            <p class="card-text">{{ n.body }}</p>
+                        {% else %}
+                            <p class="card-text">{{ n.body | slice:":100" }}...</p>
 
 
+                            </div>
+                            <div style="margin: 10px; position: relative; text-align: right;">
+                                <a style="color: gray; text-decoration: none" href="#" class="card-link">Edit</a>
+                            </div>
+                            </div>
+
+                        {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+    {% else %}
+        <div style="display: flex; justify-content: center; align-items: center; padding-top: 100px; ">
+            <h1>Please, <a href="{% url "login" %}" style="text-decoration: none; color: navy">Login</a> first</h1>
+        </div>
+{#        <img src="{% static "images/cat2.jpg" %}" alt="cat2">#}
+    {% endif %}
 {% endblock %}
