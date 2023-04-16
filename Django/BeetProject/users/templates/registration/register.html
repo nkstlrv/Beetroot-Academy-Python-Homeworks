@@ -2,8 +2,8 @@
 {% block title %}Registration{% endblock title %}
 {% block content %}
 
-    <div class="form-group" style="margin-left: 20px; margin-top: 10px">
-    <h2> Register</h2>
+    <div class="form-group" style="margin-left: 50px; margin-top: 10px; margin-right: 150px; margin-bottom: 50px;'">
+        <h2> Register</h2>
         <br>
         <form method="post">{% csrf_token %}
             {{ form.as_p }}
