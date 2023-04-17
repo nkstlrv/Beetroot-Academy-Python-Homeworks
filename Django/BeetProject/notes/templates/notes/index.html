@@ -1,46 +1,67 @@
 {% extends "notes/base.html" %}
 {% load static %}
+{% load static %}
 {% block title %}Home{% endblock title %}
 
 {% block content %}
 
     {% if user.is_authenticated %}
+        {% if user.note_set.all|length == 0 %}
+            <div style="align-self: center; align-items: center; justify-content: center; display:flex; ">
+                <h1>Your notes will appear here 📝</h1>
+            </div>
+        {% endif %}
 
-
-        <div style="align-self: center; text-align: center; padding-top: 5px"><strong>Hello there, {{ user.username }}
-            👋</strong></div>
-        <div style="display: flex; flex-direction: row; flex-wrap: wrap">
-
-            {% for n in note_list %}
-                {% if user.id == n.author.id %}
-                {#  Single Card Template:#}
-                <div class="card" style="width: 18rem; margin: 20px; background-color: lightyellow">
-                    <div class="card-body">
-
-                        <h5 class="card-title">{{ n.title }}</h5>
-                        <h6 style="font-size: small" class="card-subtitle mb-2 text-body-secondary">{{ n.created }}
-                            UTC</h6>
-
-                        {% if  n.body|length  < 100 %}
-                            <p class="card-text">{{ n.body }}</p>
-                        {% else %}
-                            <p class="card-text">{{ n.body | slice:":100" }}...</p>
-
-
-                            </div>
-                            <div style="margin: 10px; position: relative; text-align: right;">
-                                <a style="color: gray; text-decoration: none" href="#" class="card-link">Edit</a>
-                            </div>
-                            </div>
-
-                        {% endif %}
-                </div>
-                {% endif %}
-                {% endfor %}
-    {% else %}
-        <div style="display: flex; justify-content: center; align-items: center; padding-top: 100px; ">
-            <h1>Please, <a href="{% url "login" %}" style="text-decoration: none; color: navy">Login</a> first</h1>
+        <div style="position: fixed; bottom: 0; right: 0; padding: 20px; z-index: 9999;">
+            <a href="{% url "new-note" %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                     class="bi bi-plus-circle"
+                     viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+            </a>
         </div>
-{#        <img src="{% static "images/cat2.jpg" %}" alt="cat2">#}
+
+        <div class="py-5">
+        <div class="container">
+        <div class="row hidden-md-up">
+        {% for n in note_list %}
+            {% if user.id == n.author.id %}
+                <div class="col-md-4">
+
+                    <div class="card" style="margin-top: 10px">
+
+                    <div style="position: absolute; top: 0; right: 0; font-size: x-small; margin: 5px">
+                        <a href="{% url "delete-note" n.pk %}"><button type="button" class="btn-close" aria-label="Close"></button></a>
+                    </div>
+
+                        <div class="card-block"
+                             style="padding: 10px; background-color: lightyellow; border-radius: 20px">
+                            <h4 class="card-title">{{ n.title }}</h4>
+                            <strong class="card-subtitle text-muted" style="font-size: small">{{ n.created }}</strong>
+                            <hr>
+                            {% if n.body|length > 100 %}
+                                <p class="card-text p-y-1">{{ n.body|slice:":100" }}...</p>
+                            {% else %}
+                                <p class="card-text p-y-1">{{ n.body }}</p>
+                            {% endif %}
+                            <div style="float: right; padding-right: 10px">
+                                <a href="{% url 'edit-note' n.pk %}" class="card-link"
+                                   style="text-decoration: none; color: gray">Edit</a></div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+
+    {% else %}
+        <div><h1 style="position: absolute; color: steelblue; margin-left: 300px; margin-top: 170px">
+            Please, <a href="{% url 'login' %}" style="text-decoration: none">Login</a> first 🐱
+        </h1></div>
+
+        <img src="{% static 'images/cat2.jpg' %}" alt="cat" style="width: 100%; height: auto">
+
     {% endif %}
 {% endblock %}

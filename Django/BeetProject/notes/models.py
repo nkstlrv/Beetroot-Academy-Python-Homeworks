@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 
 class Note(models.Model):
     title = models.CharField(max_length=255, blank=False, null=False)
-    body = models.TextField(max_length=5000, default='Hello, there')
+    body = models.TextField(max_length=5000, blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
