@@ -6,6 +6,11 @@
 {% block content %}
 
     {% if user.is_authenticated %}
+
+        <div style="text-align: center; margin-top: 5px">
+            <h5>Hello there, {{ user.username }} 👋</h5>
+        </div>
+
         {% if user.note_set.all|length == 0 %}
             <div style="align-self: center; align-items: center; justify-content: center; display:flex; ">
                 <h1>Your notes will appear here 📝</h1>
@@ -23,28 +28,32 @@
             </a>
         </div>
 
-        <div class="py-5">
-        <div class="container">
-        <div class="row hidden-md-up">
+        <div class="py-5"  style="margin: auto">
+        <div class="container" >
+        <div class="row hidden-md-up" >
         {% for n in note_list %}
             {% if user.id == n.author.id %}
-                <div class="col-md-4">
+                <div class="col-md-4" >
 
                     <div class="card" style="margin-top: 10px">
 
-                    <div style="position: absolute; top: 0; right: 0; font-size: x-small; margin: 5px">
-                        <a href="{% url "delete-note" n.pk %}"><button type="button" class="btn-close" aria-label="Close"></button></a>
-                    </div>
+                        <div style="position: absolute; top: 0; right: 0; font-size: x-small; margin: 10px">
+                            <a href="{% url "delete-note" n.pk %}">
+                                <button type="button" class="btn-close" aria-label="Close"></button>
+                            </a>
+                        </div>
 
                         <div class="card-block"
                              style="padding: 10px; background-color: lightyellow; border-radius: 20px">
-                            <h4 class="card-title">{{ n.title }}</h4>
+                            <h4 class="card-title"><a href="{% url 'detailed-note' n.pk %}"
+                                                      style="text-decoration: none; color: slategrey">{{ n.title }}</a>
+                            </h4>
                             <strong class="card-subtitle text-muted" style="font-size: small">{{ n.created }}</strong>
                             <hr>
                             {% if n.body|length > 100 %}
                                 <p class="card-text p-y-1">{{ n.body|slice:":100" }}...</p>
                             {% else %}
-                                <p class="card-text p-y-1">{{ n.body }}</p>
+                                <p class="card-text p-y-1">{{ n.body|safe }}</p>
                             {% endif %}
                             <div style="float: right; padding-right: 10px">
                                 <a href="{% url 'edit-note' n.pk %}" class="card-link"

@@ -17,7 +17,7 @@
                     <h5 class="card-title">{{ note.title }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ note.created }}</h6>
                     <hr>
-                    <p class="card-text">{{ note.body }}</p>
+                    <p class="card-text">{{ note.body | safe}}</p>
                     <div style="float: right; position: relative">
                         <a style="text-decoration: none; color: darkslategray" href="{% url 'edit-note' note.pk %}"
                            class="card-link">Edit</a>
