@@ -1,0 +1,37 @@
+{% extends 'notes/base.html' %}
+{% load static %}
+{% block title %}Edit {{ note.title }}{% endblock title %}
+{% block content %}
+
+    {% if user.is_authenticated %}
+        {% if user.id == note.author.id %}
+
+            <div style="justify-content: center; align-items: center; display:flex; margin-top: 30px; ">
+
+                <div class="card"
+                     style="width: 30rem; ; display: flex; justify-content: center; background-color: lightyellow">
+                    <div class="card-body" style="background-color: lightyellow ; border-radius: 10px; ">
+                        <h3>Edit Note</h3>
+                        <div class="form-group">
+                        <form method="post">
+
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div style="float: right">
+                                <button type="submit" class="btn btn-secondary">Edit</button>
+                            </div>
+                        </form>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        {% else %}
+
+            <div><h1 style="position: absolute; color: steelblue; margin-left: 300px; margin-top: 170px">
+                Please, <a href="{% url 'login' %}" style="text-decoration: none">Login</a> first 🐱
+            </h1></div>
+            <img src="{% static 'images/cat2.jpg' %}" alt="cat" style="width: 100%; height: auto">
+        {% endif %}
+    {% endif %}
+{% endblock content %}

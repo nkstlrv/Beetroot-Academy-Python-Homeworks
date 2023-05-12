@@ -1,0 +1,36 @@
+{% extends 'notes/base.html' %}
+{% load static %}
+{% block title %}{{ note.title }}{% endblock title %}
+{% block content %}
+
+    {% if user.is_authenticated %}
+        {% if user.id == note.author.id %}
+            <div class="card"
+                 style="width: 50rem; align-self: center; margin-left: 150px; margin-top: 50px; background-color: lightyellow">
+                <div class="card-body">
+                    <div>
+                        <a href="#">
+                            <button type="button" class="btn-close" aria-label="Close"
+                                    style="float: right; font-size: x-small"></button>
+                        </a>
+                    </div>
+                    <h5 class="card-title">{{ note.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ note.created }}</h6>
+                    <hr>
+                    <p class="card-text">{{ note.body | safe}}</p>
+                    <div style="float: right; position: relative">
+                        <a style="text-decoration: none; color: darkslategray" href="{% url 'edit-note' note.pk %}"
+                           class="card-link">Edit</a>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    {% else %}
+        <div><h1 style="position: absolute; color: steelblue; margin-left: 300px; margin-top: 170px">
+            Please, <a href="{% url 'login' %}" style="text-decoration: none">Login</a> first 🐱
+        </h1></div>
+
+        <img src="{% static 'images/cat2.jpg' %}" alt="cat" style="width: 100%; height: auto">
+    {% endif %}
+{% endblock content %}
