@@ -1,0 +1,29 @@
+Task 1
+
+File Context Manager class
+
+Create your own class, which can behave like a built-in function `open`.
+Also, you need to extend its functionality with counter and logging.
+Pay special attention to the implementation of `__exit__` method,
+which has to cover all the requirements to context managers
+
+Task 2
+
+Writing tests for context manager
+
+Take your implementation of the context manager class from Task 1 and write tests for it.
+Try to cover as many use cases as you can, positive ones when a file exists and everything works as designed.
+And also, write tests when your class raises errors, or you have errors in the runtime context suite.
+
+
+Task 3 (Optional)
+
+Pytest fixtures with context manager
+
+Create a simple function, which performs any logic of your choice with text data,
+which it obtains from a file object, passed to this function ( def test(file_obj) ).
+
+Create a test case for this function using pytest library (Full pytest documentation).
+
+Create pytest fixture, which uses your implementation of the context manager to return a file object,
+which could be used inside your function.
