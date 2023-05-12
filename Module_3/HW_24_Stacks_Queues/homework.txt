@@ -1,0 +1,25 @@
+Task 1
+
+Write a program that reads in a sequence of characters and prints them in reverse order,
+using your implementation of Stack.
+
+
+
+Task 2
+
+Write a program that reads in a sequence of characters, and determines whether it's parentheses,
+braces, and curly brackets are "balanced."
+
+
+
+Task 3
+
+Extend the Stack to include a method called get_from_stack that searches and returns an element e from a stack.
+Any other element must remain on the stack respecting their order.
+Consider the case in which the element is not found - raise ValueError with proper info Message
+
+
+
+Extend the Queue to include a method called get_from_stack that searches and returns an element e from a queue.
+Any other element must remain in the queue respecting their order.
+Consider the case in which the element is not found - raise ValueError with proper info Message
